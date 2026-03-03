@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { MessageSquare, ArrowLeft, HelpCircle, ChevronRight, Pencil, X } from "lucide-react";
+import { MessageSquare, ArrowLeft, HelpCircle, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 const qAndA = [
@@ -104,12 +104,6 @@ const panelQuestions = [
 
 export default function Module5() {
   const [activeQuestion, setActiveQuestion] = useState<number | null>(null);
-  const [practiceText, setPracticeText] = useState<Record<number, string>>({});
-  const [showPractice, setShowPractice] = useState<Record<number, boolean>>({});
-
-  const togglePractice = (idx: number) => {
-    setShowPractice(prev => ({ ...prev, [idx]: !prev[idx] }));
-  };
 
   return (
     <div className="p-8 max-w-5xl mx-auto space-y-12 pb-24">
@@ -198,33 +192,6 @@ export default function Module5() {
                     <p className="text-sm text-gray-800 italic leading-relaxed">{qa.example}</p>
                   </div>
 
-                  <div className="px-6 py-5">
-                    <button
-                      onClick={() => togglePractice(idx)}
-                      className="flex items-center text-sm font-semibold text-subsea-600 hover:text-subsea-800 transition-colors"
-                    >
-                      {showPractice[idx] ? (
-                        <><X className="w-4 h-4 mr-2" /> Close practice area</>
-                      ) : (
-                        <><Pencil className="w-4 h-4 mr-2" /> Write your own answer</>
-                      )}
-                    </button>
-
-                    {showPractice[idx] && (
-                      <div className="mt-4 space-y-2">
-                        <label className="block text-xs font-semibold text-gray-600">
-                          Type your practice answer below — use the STAR structure above.
-                        </label>
-                        <textarea
-                          value={practiceText[idx] || ""}
-                          onChange={(e) => setPracticeText(prev => ({ ...prev, [idx]: e.target.value }))}
-                          placeholder="Situation: ... Task: ... Action: ... Result: ..."
-                          className="w-full p-4 text-sm border border-gray-300 rounded-lg focus:outline-none focus:border-subsea-500 min-h-[140px] resize-y"
-                        />
-                        <p className="text-xs text-gray-400">Your notes stay here while the page is open. Copy them somewhere if you want to save them.</p>
-                      </div>
-                    )}
-                  </div>
                 </div>
               )}
             </div>

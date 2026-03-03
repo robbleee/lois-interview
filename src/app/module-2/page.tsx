@@ -1,33 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { ArrowLeftRight, Code, Mountain, ShieldCheck, ArrowLeft, Target, BookOpen, Users, ArrowRight, CheckCircle2, XCircle } from "lucide-react";
+import { Code, Mountain, ShieldCheck, ArrowLeft, Target, BookOpen, Users, CheckCircle2, XCircle } from "lucide-react";
 import Link from "next/link";
-
-// When the user types something, we try to match their experience to an engineering reframe.
-// The output is in plain English, not jargon.
-const translationLogic = [
-  {
-    keywords: ["run", "mountain", "race", "athlet", "marathon", "trail", "climb"],
-    translation: "Shows that you can push through difficult and uncomfortable situations without giving up. Offshore projects can be long and stressful — this experience proves you won't crumble under pressure.",
-  },
-  {
-    keywords: ["python", "matlab", "code", "script", "program", "software", "data", "algorithm"],
-    translation: "You can write computer programs to process and analyse data. At Reach Subsea, the vessels generate enormous amounts of sonar and sensor data. Being able to write scripts to sort, clean, and visualise that data quickly is genuinely valuable — most engineers can't do this.",
-  },
-  {
-    keywords: ["seismic", "field", "survey", "node", "equipment", "geophys"],
-    translation: "You've worked in the field with scientific instruments in difficult environments. This shows you understand how to safely set up and use technical equipment outdoors — a direct parallel to offshore work.",
-  },
-  {
-    keywords: ["team", "group", "lead", "mentor", "teach", "coach", "captain"],
-    translation: "You can work with and support others to achieve a shared goal. Reach Subsea's culture is built around this — they literally call one of their core values 'Teach', meaning they expect people to share knowledge and bring colleagues along with them.",
-  },
-  {
-    keywords: ["plan", "organis", "logistics", "coordinat", "manag"],
-    translation: "You know how to organise things in advance and adapt when things change. As a Project Engineer, your whole job is coordinating people, equipment, and timelines — often at the same time.",
-  },
-];
 
 const athleticMapping = [
   {
@@ -87,12 +62,6 @@ const valuesScenarios = [
 ];
 
 export default function Module2() {
-  const [inputText, setInputText] = useState("");
-  const [translatedText, setTranslatedText] = useState<string | null>(null);
-  const [isTranslating, setIsTranslating] = useState(false);
-  const [noMatch, setNoMatch] = useState(false);
-
-  // Values quiz state
   const [vqActive, setVqActive] = useState(false);
   const [vqIndex, setVqIndex] = useState(0);
   const [vqSelected, setVqSelected] = useState<string | null>(null);
@@ -125,33 +94,6 @@ export default function Module2() {
     setVqDone(false);
   };
 
-  const handleTranslate = () => {
-    if (!inputText.trim()) return;
-    setIsTranslating(true);
-    setTranslatedText(null);
-    setNoMatch(false);
-
-    setTimeout(() => {
-      const lowerInput = inputText.toLowerCase();
-      let found: string | null = null;
-
-      for (const logic of translationLogic) {
-        if (logic.keywords.some(kw => lowerInput.includes(kw))) {
-          found = logic.translation;
-          break;
-        }
-      }
-
-      if (found) {
-        setTranslatedText(found);
-      } else {
-        setNoMatch(true);
-        setTranslatedText("Try being more specific — mention what you actually did (e.g. 'ran a race', 'wrote Python code', 'did a seismic survey').");
-      }
-      setIsTranslating(false);
-    }, 700);
-  };
-
   return (
     <div className="p-8 max-w-5xl mx-auto space-y-12 pb-24">
       <div className="flex items-center space-x-4 mb-8">
@@ -175,52 +117,6 @@ export default function Module2() {
           project delivery, data management, safety awareness, and teamwork. This module shows you 
           how to translate your real experiences into that language.
         </p>
-      </section>
-
-      {/* Translation Tool */}
-      <section className="bg-subsea-50 rounded-xl p-8 border border-subsea-100">
-        <div className="flex items-center space-x-3 mb-2">
-          <ArrowLeftRight className="w-7 h-7 text-subsea-600" />
-          <h2 className="text-2xl font-bold text-gray-900">Experience Translator</h2>
-        </div>
-        <p className="text-gray-600 mb-6 text-sm">
-          Type something you've done — a race, a piece of fieldwork, a coding project — and see 
-          how to explain it in a way an engineering interviewer will understand and value.
-        </p>
-
-        <div className="grid md:grid-cols-2 gap-8 items-start">
-          <div className="space-y-4">
-            <label className="block text-sm font-semibold text-gray-700">What did you do?</label>
-            <textarea
-              value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
-              placeholder="e.g. I completed a 100km mountain race in bad weather..."
-              className="w-full h-32 p-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-subsea-500 focus:border-subsea-500 transition-all resize-none text-gray-800"
-            />
-            <button
-              onClick={handleTranslate}
-              disabled={isTranslating || !inputText.trim()}
-              className="w-full bg-subsea-600 hover:bg-subsea-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
-            >
-              {isTranslating ? (
-                <span className="animate-pulse">Thinking...</span>
-              ) : (
-                <>How do I say this in engineering terms? <ArrowRight className="ml-2 w-4 h-4" /></>
-              )}
-            </button>
-          </div>
-
-          <div className="space-y-4">
-            <label className="block text-sm font-semibold text-gray-700">How to explain this to an interviewer</label>
-            <div className={`w-full min-h-[128px] p-6 rounded-lg border-2 transition-all flex items-center justify-center text-center ${translatedText ? (noMatch ? 'bg-amber-50 border-amber-300' : 'bg-white border-subsea-400 shadow-sm') : 'bg-gray-50 border-dashed border-gray-300'}`}>
-              {translatedText ? (
-                <p className="text-gray-900 font-medium leading-relaxed text-sm">{translatedText}</p>
-              ) : (
-                <p className="text-gray-400 italic text-sm">Your reframed answer will appear here.</p>
-              )}
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* The key skills */}
