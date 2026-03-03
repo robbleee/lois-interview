@@ -12,6 +12,7 @@ import {
   Ship,
   BookOpenText,
   Trophy,
+  Headphones,
 } from "lucide-react";
 
 const navigation = [
@@ -23,6 +24,7 @@ const navigation = [
   { name: "4 — Engineering Registration", href: "/module-4", icon: GraduationCap },
   { name: "5 — Practice Questions", href: "/module-5", icon: MessageSquare },
   { name: "Full Quiz — Test Everything", href: "/quiz", icon: Trophy },
+  { name: "Podcast Episode", href: "/podcast", icon: Headphones },
 ];
 
 export default function Sidebar() {
